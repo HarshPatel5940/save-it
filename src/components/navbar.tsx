@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { HomeIcon } from "lucide-react";
 
 interface NavbarProps {
   text?: string;
