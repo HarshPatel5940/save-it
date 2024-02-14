@@ -108,9 +108,16 @@ export default function Home() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">
-        {cards}
-      </div>
+      {cards.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">
+          {cards}
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center pt-10">
+          No Text Posts{" "}
+          {debouncedSearch ? "found starting with " + debouncedSearch : ""}
+        </div>
+      )}
 
       <Footer />
     </>

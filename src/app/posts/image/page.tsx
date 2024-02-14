@@ -132,7 +132,8 @@ export default function Home() {
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center pt-10">
-          No Image Posts found starting with {debouncedSearch}
+          No Text Posts{" "}
+          {debouncedSearch ? "found starting with " + debouncedSearch : ""}
         </div>
       )}
       <Footer />
