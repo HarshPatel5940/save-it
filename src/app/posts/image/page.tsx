@@ -50,7 +50,11 @@ export default function Home() {
   ): Promise<JSX.Element[]> {
     const cardList: JSX.Element[] = [];
     const res = await fetch("https://jsonplaceholder.typicode.com/photos");
-    const data = await res.json();
+    let data = await res.json();
+
+    if (startswith) {
+      data = data.filter((post: any) => post.title.startsWith(startswith));
+    }
 
     for (let i = start; i < end && i < data.length; i++) {
       const post = data[i];
@@ -122,10 +126,15 @@ export default function Home() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">
-        {cards}
-      </div>
-
+      {cards.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">
+          {cards}
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center pt-10">
+          No Image Posts found starting with {debouncedSearch}
+        </div>
+      )}
       <Footer />
     </>
   );
