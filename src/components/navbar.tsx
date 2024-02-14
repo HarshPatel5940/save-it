@@ -25,11 +25,12 @@ export default function Navbar({ text }: NavbarProps) {
       </Link>
       <nav className=" flex space-x-4 text-xl">
         <Link
-          href={"/saved"}
+          href={text.startsWith("Saved") ? "/posts/text" : "/saved"}
           className="text-gray-600 hover:text-gray-800 dark:text-white dark:hover:text-gray-300 hover:font-bold"
         >
-          Saved Posts
+          {text.startsWith("Saved") ? "Browse Posts" : "Saved Posts"}
         </Link>
+
         <a href="https://github.com/harshpatel5940/save-it">
           <Image
             src="/github.svg"

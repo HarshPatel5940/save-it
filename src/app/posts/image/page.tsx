@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import Card from "@/components/card";
+import MyCard from "@/components/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
@@ -58,13 +58,14 @@ export default function Home() {
         continue;
       }
       cardList.push(
-        <Card
+        <MyCard
           {...{
             title: post.title,
             albumId: post.albumId,
             id: post.id,
             url: post.url,
             thumbnailUrl: post.thumbnailUrl,
+            saved: false,
           }}
         />
       );
@@ -89,7 +90,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar {...{ text: "Home" }} />
+      <Navbar {...{ text: "Image Posts" }} />
       <div className="flex justify-center items-center gap-2 md:gap-5">
         <Input
           placeholder="Search"
