@@ -8,9 +8,11 @@ export default function Home() {
       <main className="flex flex-col min-h-screen items-center justify-center p-24 gap-y-10 text-[2.5rem] md:text-[3rem] lg:text-[4.5rem]">
         <div className="flex flex-col justify-centre place-items-center z-[-1] ">
           <code className="font-mono font-bold">
-            Created By
+            Save It!
             <br />
-            console.log(&quot;Harsh Patel&quot;)
+            <span className="text-[1.5rem] md:text-[2rem] lg:text-[3rem]">
+              Created By: &quot;Harsh Patel&quot;
+            </span>
           </code>
           <Separator />
         </div>
