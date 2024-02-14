@@ -47,13 +47,15 @@ export default function Home() {
     start: number,
     end: number,
     startswith?: string
-  ): Promise<JSX.Element[]> {
-    const cardList: JSX.Element[] = [];
+  ): Promise<React.ReactNode[]> {
+    const cardList: React.ReactNode[] = [];
     const res = await fetch("https://jsonplaceholder.typicode.com/photos");
     let data = await res.json();
 
     if (startswith) {
-      data = data.filter((post: any) => post.title.startsWith(startswith));
+      data = data.filter((post: any) =>
+        post.title.toLowerCase().startsWith(startswith.toLowerCase())
+      );
     }
 
     for (let i = start; i < end && i < data.length; i++) {
@@ -92,6 +94,23 @@ export default function Home() {
     setSearch(inputRef.current?.value || "");
   }
 
+  function displayCards(): React.ReactNode {
+    return (
+      <>
+        {cards.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">
+            {cards}
+          </div>
+        ) : (
+          <div className="flex flex-col justify-center items-center pt-10">
+            No Text Posts{" "}
+            {debouncedSearch ? "found starting with " + debouncedSearch : ""}
+          </div>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar {...{ text: "Image Posts" }} />
@@ -125,17 +144,7 @@ export default function Home() {
           Next
         </Button>
       </div>
-
-      {cards.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">
-          {cards}
-        </div>
-      ) : (
-        <div className="flex flex-col justify-center items-center pt-10">
-          No Text Posts{" "}
-          {debouncedSearch ? "found starting with " + debouncedSearch : ""}
-        </div>
-      )}
+      {displayCards()}
       <Footer />
     </>
   );

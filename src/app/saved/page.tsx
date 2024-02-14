@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import MyCard from "@/components/card";
@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     getData();
-  }, [currentPage, debouncedSearch]); // Include savedCount in the dependency array
+  }, [currentPage, debouncedSearch]);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -46,9 +46,8 @@ export default function Home() {
     start: number,
     end: number,
     startswith?: string
-  ): Promise<JSX.Element[]> {
-    const cardList: JSX.Element[] = [];
-    // get from local storage
+  ): Promise<React.ReactNode[]> {
+    const cardList: React.ReactNode[] = [];
     const savedCards = JSON.parse(localStorage.getItem("savedCards") || "[]");
     for (let i = start; i < end && i < savedCards.length; i++) {
       const post = savedCards[i];
@@ -88,6 +87,23 @@ export default function Home() {
     setSearch(inputRef.current?.value || "");
   }
 
+  function displayCards(): React.ReactNode {
+    return (
+      <>
+        {cards.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">
+            {cards}
+          </div>
+        ) : (
+          <div className="flex flex-col justify-center items-center pt-10">
+            No Text Posts{" "}
+            {debouncedSearch ? "found starting with " + debouncedSearch : ""}
+          </div>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar {...{ text: "Saved Posts" }} />
@@ -107,18 +123,7 @@ export default function Home() {
           Next
         </Button>
       </div>
-
-      {cards.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">
-          {cards}
-        </div>
-      ) : (
-        <div className="flex flex-col justify-center items-center pt-10">
-          No Text Posts{" "}
-          {debouncedSearch ? "found starting with " + debouncedSearch : ""}
-        </div>
-      )}
-
+      {displayCards()}
       <Footer />
     </>
   );
