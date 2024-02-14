@@ -63,6 +63,8 @@ export default function Home() {
             userId: post.userId,
             id: post.id,
             body: post.body,
+            albumId: post.albumId,
+            thumbnailUrl: post.thumbnailUrl,
             saved: true,
           }}
         />
